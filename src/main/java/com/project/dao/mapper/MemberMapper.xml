@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.dao.member.MemberMapper">
+	<select id="getMember" parameterType="mvo" resultType="mvo">
+		SELECT MEM_ID, MEM_PASSWD, GENDER_AB, MEM_NAME, MEM_BIRTH, MEM_PHONE,
+		MEM_EMAIL,
+		ZIPCODE, ADDRESS, ADDRESS2, REG_DATE, COUNTRY_AB, MODI_DATE, STATE_YN, IP,
+		MEM_ROLE
+		FROM TB_MEMBER
+		WHERE MEM_ID = #{mem_id} and MEM_PASSWD = #{mem_passwd}
+	</select>
+	<select id="idCheck" parameterType="string">
+		SELECT COUNT(*) FROM TB_MEMBER
+		WHERE MEM_ID = #{mem_id}
+	</select>
+	<insert id="memberJoin" parameterType="mvo">
+		INSERT INTO TB_MEMBER(MEM_ID, MEM_PASSWD, GENDER_AB, MEM_NAME, MEM_BIRTH,
+		MEM_PHONE, MEM_EMAIL,
+		ZIPCODE, ADDRESS, ADDRESS2, REG_DATE, COUNTRY_AB, MODI_DATE, STATE_YN, IP,
+		MEM_ROLE)
+		VALUES(#{mem_id},
+		#{mem_passwd},
+		'M',
+		#{mem_name},
+		#{mem_birth},
+		#{mem_phone},
+		#{mem_email},
+		#{zipcode},
+		#{address},
+		#{address2},
+		SYSDATE,
+		'A',
+		#{modi_date},
+		'Y',
+		'IP_VALUE',
+		'mem')
+	</insert>
+	<select id="searchId" parameterType="mvo" resultType="string">
+		SELECT
+		MEM_ID FROM TB_MEMBER
+		WHERE MEM_NAME = #{mem_name} AND MEM_PHONE =
+		#{mem_phone}
+	</select>
+	<update id="updatePasswd" parameterType="mvo">
+		UPDATE TB_MEMBER
+		SET MEM_PASSWD = #{mem_passwd}
+		WHERE MEM_ID = #{mem_id}
+	</update>
+</mapper>
+
+
+
+
